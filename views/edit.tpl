@@ -18,7 +18,7 @@
 
         <div class="form-group">
             {{ !form.url.label }}
-            {{ !form.url(class_="form-control", placeholder=u"タイトル", maxlength="100") }}
+            {{ !form.url(class_="form-control", placeholder=u"URL", maxlength="100") }}
 
            % if form.url.errors:
                 <div class="errors">
@@ -32,7 +32,7 @@
 
         <div class="form-group">
             {{ !form.pf.label }}
-            {{ !form.pf(class_="form-control", placeholder=u"number", maxlength=u"100") }}
+            {{ !form.pf(class_="form-control", placeholder=u"platform", maxlength=u"100") }}
 
            % if form.pf.errors:
                 <div class="errors">
@@ -46,7 +46,7 @@
 
         <div class="form-group">
             {{ !form.rate.label }}
-            {{ !form.rate(class_="form-control", placeholder=u"number", maxlength=u"100") }}
+            {{ !form.rate(class_="form-control", placeholder=u"rate", maxlength=u"100") }}
 
            % if form.rate.errors:
                 <div class="errors">
@@ -60,7 +60,7 @@
 
         <div class="form-group">
             {{ !form.memo.label }}
-            {{ !form.memo(class_="form-control", placeholder=u"number", maxlength=u"100") }}
+            {{ !form.memo(class_="form-control", placeholder=u"memo", maxlength=u"100") }}
 
            % if form.memo.errors:
                 <div class="errors">
