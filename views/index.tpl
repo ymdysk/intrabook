@@ -8,8 +8,9 @@
             <thead>
             <tr>
                 <th>id</th>
-                <th>type</th>
-                <th>number</th>
+                <th>URL</th>
+                <th>プラットフォーム</th>
+                <th>レート</th>
                 <th>コメント</th>
                 <th></th>
             </tr>
@@ -20,7 +21,8 @@
             <tr>
                 <td>{{book.id}}</td>
                 <td><a href="/books/{{book.id}}/edit">{{book.url}}</a></td>
-                <td>{{book.number}}</td>
+                <td>{{book.pf}}</td>
+                <td>{{book.rate}}</td>
                 <td>{{book.memo}}</td>
                 <td>
                     <form action="/books/{{book.id}}/delete" method="post">

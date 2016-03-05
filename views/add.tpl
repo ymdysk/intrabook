@@ -9,12 +9,17 @@
 
             <div class="form-group">
                 <label for="url">URL</label>
-                <input id="url" name="url" type="text" class="form-control" maxlength="100" placeholder="タイトルを入力">
+                <input id="url" name="url" type="text" class="form-control" maxlength="100" placeholder="URLを入力">
             </div>
 
             <div class="form-group">
-                <label for="number">number</label>
-                <input id="number" name="number" type="text" class="form-control" maxlength="10" placeholder="数を入力">
+                <label for="pf">pf</label>
+                <input id="pf" name="pf" type="text" class="form-control" maxlength="100" placeholder="プラットフォームを入力">
+            </div>
+
+            <div class="form-group">
+                <label for="rate">rate</label>
+                <input id="rate" name="rate" type="text" class="form-control" maxlength="100" placeholder="レートを入力">
             </div>
 
             <div class="form-group">

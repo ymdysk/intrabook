@@ -2,7 +2,8 @@
 % for book in books:
 { id:"{{book.id}}",,
   url:"{{book.url}}",
-  number:"{{book.number}}",
+  pf:"{{book.pf}}",
+  rate:"{{book.rate}}",
   memo:"{{book.memo}}" },
 % end
 ]

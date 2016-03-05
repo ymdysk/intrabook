@@ -31,12 +31,26 @@
         </div>
 
         <div class="form-group">
-            {{ !form.number.label }}
-            {{ !form.number(class_="form-control", placeholder=u"number", maxlength="100") }}
+            {{ !form.pf.label }}
+            {{ !form.pf(class_="form-control", placeholder=u"number", maxlength=u"100") }}
 
-           % if form.number.errors:
+           % if form.pf.errors:
                 <div class="errors">
-                % for error in form.number.errors:
+                % for error in form.pf.errors:
+                    <p class="text-danger">{{ error }}</p>
+                % end
+                </div>
+            % end
+
+        </div>
+
+        <div class="form-group">
+            {{ !form.rate.label }}
+            {{ !form.rate(class_="form-control", placeholder=u"number", maxlength=u"100") }}
+
+           % if form.rate.errors:
+                <div class="errors">
+                % for error in form.rate.errors:
                     <p class="text-danger">{{ error }}</p>
                 % end
                 </div>

@@ -41,12 +41,13 @@ class Book(Base):
     # カラムの定義
     id = Column(Integer, primary_key=True)
     url = Column(Unicode(100), nullable=False)
-    number = Column(Integer, nullable=False)
+    pf = Column(UnicodeText)
+    rate = Column(UnicodeText)
     memo = Column(UnicodeText)
     created_at = Column(DateTime, default=datetime.now)
 
     def __repr__(self):
-        return "<Book('%s','%s', '%s', '%s')>" % (self.url, self.number, self.memo, self.created_at)
+        return "<Book('%s','%s', '%s', '%s')>" % (self.url, self.pf, self.rate, self.memo, self.created_at)
 
 
 class BookForm(Form):
@@ -54,8 +55,11 @@ class BookForm(Form):
         validators.required(message=u"入力してください"),
         validators.length(min=1, max=100, message=u"100文字以下で入力してください")
     ])
-    number = IntegerField(u'数', [
-        validators.required(message=u"数値で入力してください")
+    pf = TextAreaField(u'プラットフォーム', [
+        validators.required(message=u"入力してください")
+    ])
+    rate = TextAreaField(u'レート', [
+        validators.required(message=u"入力してください")
     ])
     memo = TextAreaField(u'コメント', [
         validators.required(message=u"入力してください")
@@ -88,7 +92,8 @@ def create(db):
         # Bookインスタンスの作成
         book = Book(
             url=form.url.data,
-            number=form.number.data,
+            pf=form.pf.data,
+            rate=form.rate.data,
             memo=form.memo.data
         )
 
@@ -131,7 +136,8 @@ def update(db, id):
     if form.validate():
         # book情報を更新
         book.url = form.url.data
-        book.number = form.number.data
+        book.pf = form.pf.data
+        book.rate = form.rate.data
         book.memo = form.memo.data
 
         # 一覧画面へリダイレクト
@@ -166,4 +172,4 @@ def destroy(db, id):
 
 
 if __name__ == '__main__':
-    run(host='localhost', port=80, debug=True, reloader=True)
+    run(host='133.130.89.148', port=80, debug=True, reloader=True)
