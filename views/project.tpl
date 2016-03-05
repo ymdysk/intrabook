@@ -1,7 +1,7 @@
 % rebase('base.tpl')
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1 class="page-header">ブックマーク一覧</h1>
+    <h1 class="page-header">プロジェクト一覧</h1>
 
     <div class="table-responsive">
         <table class="table table-striped">
@@ -17,15 +17,15 @@
             </thead>
             <tbody>
 
-            % for book in books:
+            % for project in projects:
             <tr>
-                <td>{{book.id}}</td>
-                <td><a href="/books/{{book.id}}/edit">{{book.url}}</a></td>
-                <td>{{book.pf}}</td>
-                <td>{{book.rate}}</td>
-                <td>{{book.memo}}</td>
+                <td>{{project.id}}</td>
+                <td><a href="/projects/{{project.id}}/edit">{{project.url}}</a></td>
+                <td>{{project.pf}}</td>
+                <td>{{project.rate}}</td>
+                <td>{{project.memo}}</td>
                 <td>
-                    <form action="/books/{{book.id}}/delete" method="post">
+                    <form action="/projects/{{project.id}}/delete" method="post">
                         <p><input value="削除する" type="submit"/></p>
                     </form>
                 </td>

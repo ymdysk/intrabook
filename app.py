@@ -49,6 +49,21 @@ class Book(Base):
     def __repr__(self):
         return "<Book('%s','%s', '%s', '%s')>" % (self.url, self.pf, self.rate, self.memo, self.created_at)
 
+class Project(Base):
+    # projectsテーブル
+    __tablename__ = 'projects'
+
+    # カラムの定義
+    id = Column(Integer, primary_key=True)
+    url = Column(Unicode(100), nullable=False)
+    pf = Column(UnicodeText)
+    rate = Column(UnicodeText)
+    memo = Column(UnicodeText)
+    created_at = Column(DateTime, default=datetime.now)
+
+    def __repr__(self):
+        return "<Project('%s','%s', '%s', '%s')>" % (self.url, self.pf, self.rate, self.memo, self.created_at)
+
 
 class BookForm(Form):
     url = StringField(u'URL', [
@@ -65,30 +80,55 @@ class BookForm(Form):
         validators.required(message=u"入力してください")
     ])
 
+class ProjectForm(Form):
+    url = StringField(u'URL', [
+        validators.required(message=u"入力してください"),
+        validators.length(min=1, max=100, message=u"100文字以下で入力してください")
+    ])
+    pf = TextAreaField(u'プラットフォーム', [
+        validators.required(message=u"入力してください")
+    ])
+    rate = TextAreaField(u'レート', [
+        validators.required(message=u"入力してください")
+    ])
+    memo = TextAreaField(u'コメント', [
+        validators.required(message=u"入力してください")
+    ])
+
+
 @get('/books')
 def index(db):
     # booksテーブルから全件取得
     books = db.query(Book).all()
-
     # index.tplの描画
     return template('index', books=books, request=request)
+
+@get('/projects')
+def index(db):
+    # projectsテーブルから全件取得
+    projects = db.query(Project).all()
+    # index.tplの描画
+    return template('project', projects=projects, request=request)
 
 
 @get('/books/add')
 def new(db):
     form = BookForm()
-
     # add.tplの描画
     return template('edit', form=form, request=request)
+
+@get('/projects/add')
+def new(db):
+    form = ProjectForm()
+    # padd.tplの描画
+    return template('pedit', form=form, request=request)
 
 
 @post('/books/add')
 def create(db):
     form = BookForm(request.forms.decode())
-
     # フォームのバリデーション
     if form.validate():
-
         # Bookインスタンスの作成
         book = Book(
             url=form.url.data,
@@ -96,30 +136,56 @@ def create(db):
             rate=form.rate.data,
             memo=form.memo.data
         )
-
         # bookを保存
         db.add(book)
-
         # 一覧画面へリダイレクト
         redirect("/books")
     else:
         return template('edit', form=form, request=request)
+
+@post('/projects/add')
+def create(db):
+    form = ProjectForm(request.forms.decode())
+    # フォームのバリデーション
+    if form.validate():
+        # Projectインスタンスの作成
+        project = Project(
+            url=form.url.data,
+            pf=form.pf.data,
+            rate=form.rate.data,
+            memo=form.memo.data
+        )
+        # projectを保存
+        db.add(project)
+        # 一覧画面へリダイレクト
+        redirect("/projects")
+    else:
+        return template('pedit', form=form, request=request)
 
 
 @get('/books/<id:int>/edit')
 def edit(db, id):
     # Bookの検索
     book = db.query(Book).get(id)
-
     # Bookが存在しない(404を表示）
     if not book:
-        return HTTPError(404, 'Book is not found.')
-
+        return HTTPError(404, 'Bookmark is not found.')
     # フォームを作成
     form = BookForm(request.POST, book)
-
     # edit.tplを描画
     return template('edit', book=book, form=form, request=request)
+
+@get('/projects/<id:int>/edit')
+def edit(db, id):
+    # Projectの検索
+    project = db.query(Project).get(id)
+    # Projectが存在しない(404を表示）
+    if not project:
+        return HTTPError(404, 'Project is not found.')
+    # フォームを作成
+    form = ProjectForm(request.POST, project)
+    # pedit.tplを描画
+    return template('pedit', project=project, form=form, request=request)
 
 
 @post('/books/<id:int>/edit')
@@ -145,6 +211,7 @@ def update(db, id):
     else:
         return template('edit', form=form, request=request)
 
+
 @get('/array')
 def returnarray(db):
     from bottle import response
@@ -158,20 +225,43 @@ def returnarray(db):
     jdata = jdata[:-1]
     return jdata
 
+@get('/parray')
+def returnarray(db):
+    from bottle import response
+    projects = db.query(Project).all()
+    response.content_type = 'application/json'
+    jdata=''
+    # ループでJSON作成
+    for project in projects:
+        jdata += "{" + "\"url\":\"" + project.url + "\",\"pf\":\"" + project.pf + "\",\"rate\":\"" + project.rate + "\",\"memo\":\"" + project.memo + "\"},"
+    # 末尾1文字削除
+    jdata = jdata[:-1]
+    return jdata
+
+
 @post('/books/<id:int>/delete')
 def destroy(db, id):
     # Bookの検索
     book = db.query(Book)
-
     # Bookが存在しない(404を表示）
     if not book:
         return HTTPError(404, 'Book is not found.')
-
     # bookを削除
     db.delete(book)
-
     # 一覧画面へリダイレクト
     redirect("/books")
+
+@post('/projects/<id:int>/delete')
+def destroy(db, id):
+    # Projectの検索
+    project = db.query(Project)
+    # Projectが存在しない(404を表示）
+    if not project:
+        return HTTPError(404, 'Project is not found.')
+    # projectを削除
+    db.delete(project)
+    # 一覧画面へリダイレクト
+    redirect("/projects")
 
 
 if __name__ == '__main__':

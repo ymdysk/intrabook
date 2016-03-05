@@ -5,7 +5,12 @@
 
     <div class="col-md-5">
 
+    % if request.path == "/books/add":
         <form action="/books/add" method="post">
+    % else:
+        <form action="/projects/add" method="post">
+    % end
+
 
             <div class="form-group">
                 <label for="url">URL</label>

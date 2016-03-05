@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">データ管理アプリケーション</a>
+            <a class="navbar-brand" href="#">ブックマーク・プロジェクト管理アプリケーション</a>
         </div>
     </div>
 </nav>
@@ -20,19 +20,12 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-            % if request.path == "/books":
-                <li class="active"><a href="/books">一覧</a></li>
-                <li ><a href="/books/add">登録</a></li>
+                <li ><a href="/books">ブックマーク一覧</a></li>
+                <li ><a href="/books/add">ブックマーク登録</a></li>
+                <li ><a href="/projects">プロジェクト一覧</a></li>
+                <li ><a href="/projects/add">プロジェクト登録</a></li>
                 <li ><a href="/array">array</a></li>
-            % elif request.path == "/books/add":
-                <li ><a href="/books">一覧</a></li>
-                <li class="active"><a href="/books/add">登録</a></li>
-                <li ><a href="/array">array</a></li>
-            % else:
-                <li ><a href="/books">一覧</a></li>
-                <li ><a href="/books/add">登録</a></li>
-                <li ><a href="/array">array</a></li>
-            % end
+                <li ><a href="/parray">parray</a></li>
             </ul>
         </div>
 
