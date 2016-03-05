@@ -148,12 +148,15 @@ def update(db, id):
 @get('/array')
 def returnarray(db):
     from bottle import response
-    from json import dumps
-#    rv = [{ "id": 1, "name": "Test Item 1" }, { "id": 2, "name": "Test Item 2" }]
     books = db.query(Book).all()
     response.content_type = 'application/json'
-#    return dumps(str(books))
-    return template('arraytmpl', books=books, request=request)
+    jdata=''
+    # ループでJSON作成
+    for book in books:
+        jdata += "{" + "\"url\":\"" + book.url + "\",\"pf\":\"" + book.pf + "\",\"rate\":\"" + book.rate + "\",\"memo\":\"" + book.memo + "\"},"
+    # 末尾1文字削除
+    jdata = jdata[:-1]
+    return jdata
 
 @post('/books/<id:int>/delete')
 def destroy(db, id):
