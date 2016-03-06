@@ -65,6 +65,20 @@ class Project(Base):
     def __repr__(self):
         return "<Project('%s','%s','%s','%s','%s')>" % (self.title, self.url, self.pf, self.rate, self.memo, self.created_at)
 
+class Rel(Base):
+    # Relテーブル
+    __tablename__ = 'rels'
+
+    # カラムの定義
+    id = Column(Integer, primary_key=True)
+    bid = Column(Integer, nullable=False)
+    pid = Column(Integer, nullable=False)
+    created_at = Column(DateTime, default=datetime.now)
+
+    def __repr__(self):
+        return "<Rel('%s','%s', '%s', '%s')>" % (self.bid, self.pid, self.created_at)
+
+
 
 class BookForm(Form):
     url = StringField(u'URL', [
@@ -99,6 +113,13 @@ class ProjectForm(Form):
         validators.required(message=u"入力してください")
     ])
 
+class RelForm(Form):
+    bid = TextAreaField(u'bid', [
+        validators.required(message=u"入力してください"),
+    ])
+    pid = TextAreaField(u'pid', [
+        validators.required(message=u"入力してください")
+    ])
 
 @get('/books')
 def index(db):
@@ -127,7 +148,6 @@ def new(db):
     # padd.tplの描画
     return template('pedit', form=form, request=request)
 
-
 @post('/books/add')
 def create(db):
     form = BookForm(request.forms.decode())
@@ -148,7 +168,7 @@ def create(db):
         return template('edit', form=form, request=request)
 
 @post('/projects/add')
-def create(db):
+def pcreate(db):
     form = ProjectForm(request.forms.decode())
     # フォームのバリデーション
     if form.validate():
@@ -166,6 +186,23 @@ def create(db):
         redirect("/projects")
     else:
         return template('pedit', form=form, request=request)
+
+@post('/rels/add')
+def rcreate(db):
+    form = RelForm(request.forms.decode())
+    # フォームのバリデーション
+    if form.validate():
+        # Projectインスタンスの作成
+        rel = Rel(
+            bid=form.bid.data,
+            pid=form.pid.data
+        )
+        # projectを保存
+        db.add(rel)
+        # 一覧画面へリダイレクト
+        redirect("/rels")
+    else:
+        return template('redit', form=form, request=request)
 
 
 @get('/books/<id:int>/edit')
@@ -191,6 +228,18 @@ def edit(db, id):
     form = ProjectForm(request.POST, project)
     # pedit.tplを描画
     return template('pedit', project=project, form=form, request=request)
+
+@get('/projects/<id:int>/edit')
+def redit(db, id):
+    # Relの検索
+    rel = db.query(Rel).get(id)
+    # Relが存在しない(404を表示）
+    if not rel:
+        return HTTPError(404, 'Rel is not found.')
+    # フォームを作成
+    form = RelForm(request.POST, rel)
+    # pedit.tplを描画
+    return template('redit', rel=rel, form=form, request=request)
 
 
 @post('/books/<id:int>/edit')
@@ -243,6 +292,19 @@ def returnarray(db):
     jdata = '[' + jdata[:-1] + ']'
     return jdata
 
+@get('/rarray')
+def returnrarray(db):
+    from bottle import response
+    rels = db.query(Rel).all()
+    response.content_type = 'application/json'
+    jdata=''
+    # ループでJSON作成
+    for rel in rels:
+        jdata += "{" + "\"bid\":\"" + str(rel.bid) + "\",\"pid\":\"" + str(rel.pid) + "\"},"
+    # 末尾1文字削除,括弧追加
+    jdata = '[' + jdata[:-1] + ']'
+    return jdata
+
 
 @post('/books/<id:int>/delete')
 def destroy(db, id):
@@ -267,6 +329,18 @@ def destroy(db, id):
     db.delete(project)
     # 一覧画面へリダイレクト
     redirect("/projects")
+
+@post('/rels/<id:int>/delete')
+def destroy(db, id):
+    # Relの検索
+    Rel = db.query(Rel)
+    # Projectが存在しない(404を表示）
+    if not rel:
+        return HTTPError(404, 'Rel is not found.')
+    # projectを削除
+    db.delete(rel)
+    # 一覧画面へリダイレクト
+    redirect("/rels")
 
 
 if __name__ == '__main__':
