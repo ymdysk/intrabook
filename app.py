@@ -274,7 +274,7 @@ def returnarray(db):
     jdata=''
     # ループでJSON作成
     for book in books:
-        jdata += "{" + "\"url\":\"" + book.url + "\",\"pf\":\"" + book.pf + "\",\"rate\":\"" + book.rate + "\",\"memo\":\"" + book.memo + "\"},"
+        jdata += "{" + "\"id\":\"" + str(book.id) + "\",\"url\":\"" + book.url + "\",\"pf\":\"" + book.pf + "\",\"rate\":\"" + book.rate + "\",\"memo\":\"" + book.memo + "\"},"
     # 末尾1文字削除,括弧追加
     jdata = '[' + jdata[:-1] + ']'
     return jdata
@@ -287,7 +287,7 @@ def returnarray(db):
     jdata=''
     # ループでJSON作成
     for project in projects:
-        jdata += "{" + "\"title\":\"" + project.title + "\",\"url\":\"" + project.url + "\",\"pf\":\"" + project.pf + "\",\"rate\":\"" + project.rate + "\",\"memo\":\"" + project.memo + "\"},"
+        jdata += "{" + "\"id\":\"" + str(project.id) + "\",\"title\":\"" + project.title + "\",\"url\":\"" + project.url + "\",\"pf\":\"" + project.pf + "\",\"rate\":\"" + project.rate + "\",\"memo\":\"" + project.memo + "\"},"
     # 末尾1文字削除,括弧追加
     jdata = '[' + jdata[:-1] + ']'
     return jdata
