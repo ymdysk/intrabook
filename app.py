@@ -55,14 +55,15 @@ class Project(Base):
 
     # カラムの定義
     id = Column(Integer, primary_key=True)
-    url = Column(Unicode(100), nullable=False)
+    title = Column(Unicode(100), nullable=False)
+    url = Column(UnicodeText)
     pf = Column(UnicodeText)
     rate = Column(UnicodeText)
     memo = Column(UnicodeText)
     created_at = Column(DateTime, default=datetime.now)
 
     def __repr__(self):
-        return "<Project('%s','%s', '%s', '%s')>" % (self.url, self.pf, self.rate, self.memo, self.created_at)
+        return "<Project('%s','%s','%s','%s','%s')>" % (self.title, self.url, self.pf, self.rate, self.memo, self.created_at)
 
 
 class BookForm(Form):
@@ -81,9 +82,12 @@ class BookForm(Form):
     ])
 
 class ProjectForm(Form):
-    url = StringField(u'URL', [
+    title = TextAreaField(u'タイトル', [
         validators.required(message=u"入力してください"),
         validators.length(min=1, max=100, message=u"100文字以下で入力してください")
+    ])
+    url = TextAreaField(u'URL', [
+        validators.required(message=u"入力してください"),
     ])
     pf = TextAreaField(u'プラットフォーム', [
         validators.required(message=u"入力してください")
@@ -150,6 +154,7 @@ def create(db):
     if form.validate():
         # Projectインスタンスの作成
         project = Project(
+            title=form.title.data,
             url=form.url.data,
             pf=form.pf.data,
             rate=form.rate.data,
@@ -233,7 +238,7 @@ def returnarray(db):
     jdata=''
     # ループでJSON作成
     for project in projects:
-        jdata += "{" + "\"url\":\"" + project.url + "\",\"pf\":\"" + project.pf + "\",\"rate\":\"" + project.rate + "\",\"memo\":\"" + project.memo + "\"},"
+        jdata += "{" + "\"title\":\"" + project.title + "\",\"url\":\"" + project.url + "\",\"pf\":\"" + project.pf + "\",\"rate\":\"" + project.rate + "\",\"memo\":\"" + project.memo + "\"},"
     # 末尾1文字削除,括弧追加
     jdata = '[' + jdata[:-1] + ']'
     return jdata
