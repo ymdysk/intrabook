@@ -221,8 +221,8 @@ def returnarray(db):
     # ループでJSON作成
     for book in books:
         jdata += "{" + "\"url\":\"" + book.url + "\",\"pf\":\"" + book.pf + "\",\"rate\":\"" + book.rate + "\",\"memo\":\"" + book.memo + "\"},"
-    # 末尾1文字削除
-    jdata = jdata[:-1]
+    # 末尾1文字削除,括弧追加
+    jdata = '[' + jdata[:-1] + ']'
     return jdata
 
 @get('/parray')
@@ -234,8 +234,8 @@ def returnarray(db):
     # ループでJSON作成
     for project in projects:
         jdata += "{" + "\"url\":\"" + project.url + "\",\"pf\":\"" + project.pf + "\",\"rate\":\"" + project.rate + "\",\"memo\":\"" + project.memo + "\"},"
-    # 末尾1文字削除
-    jdata = jdata[:-1]
+    # 末尾1文字削除,括弧追加
+    jdata = '[' + jdata[:-1] + ']'
     return jdata
 
 
