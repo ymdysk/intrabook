@@ -1,0 +1,39 @@
+% rebase('base.tpl')
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">ブックマーク・プロジェクト関係一覧</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>URL</th>
+                <th>プラットフォーム</th>
+                <th>レート</th>
+                <th>コメント</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            % for rel in rels:
+            <tr>
+                <td>{{rel.id}}</td>
+                <td>{{rel.title}}</td>
+                <td><a href="/rels/{{rel.id}}/edit">{{rel.url}}</a></td>
+                <td>{{rel.pf}}</td>
+                <td>{{rel.rate}}</td>
+                <td>{{rel.memo}}</td>
+                <td>
+                    <form action="/rels/{{rel.id}}/delete" method="post">
+                        <p><input value="削除する" type="submit"/></p>
+                    </form>
+                </td>
+            </tr>
+            % end
+            </tbody>
+        </table>
+    </div>
+</div>

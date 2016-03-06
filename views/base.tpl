@@ -24,8 +24,11 @@
                 <li ><a href="/books/add">ブックマーク登録</a></li>
                 <li ><a href="/projects">プロジェクト一覧</a></li>
                 <li ><a href="/projects/add">プロジェクト登録</a></li>
+                <li ><a href="/rels">ブクマプロジェクト</a></li>
+                <li ><a href="/rels/add">ブクマプロジェクト登録</a></li>
                 <li ><a href="/array">array</a></li>
                 <li ><a href="/parray">parray</a></li>
+                <li ><a href="/rarray">rarray</a></li>
             </ul>
         </div>
 

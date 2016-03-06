@@ -16,25 +16,9 @@
             <form action="/projects/{{project.id}}/edit" method="post">
         % end
 
-        % if request.path == "/projects/add":
-        <div class="form-group">
-            {{ !form.title.label }}
-            {{ !form.title(class_="form-control", placeholder=u"Title", maxlength="100") }}
-
-           % if form.title.errors:
-                <div class="errors">
-                % for error in form.title.errors:
-                    <p class="text-danger">{{ error }}</p>
-                % end
-                </div>
-            % end
-
-        </div>
-        % end
-
         <div class="form-group">
             {{ !form.url.label }}
-            {{ !form.url(class_="form-control", placeholder=u"URL") }}
+            {{ !form.url(class_="form-control", placeholder=u"URL", maxlength="100") }}
 
            % if form.url.errors:
                 <div class="errors">

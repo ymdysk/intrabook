@@ -7,11 +7,6 @@
 
     % if request.path == "/books/add":
         <form action="/books/add" method="post">
-    % else:
-        <form action="/projects/add" method="post">
-    % end
-
-
             <div class="form-group">
                 <label for="url">URL</label>
                 <input id="url" name="url" type="text" class="form-control" maxlength="100" placeholder="URLを入力">
@@ -31,6 +26,34 @@
                 <label for="memo">コメント</label>
                 <textarea id="memo" name="memo" class="form-control" placeholder="コメントを入力"></textarea>
             </div>
+    % else if request.path == "/projects/add":
+        <form action="/projects/add" method="post">
+            <div class="form-group">
+                <label for="title">title</label>
+                <input id="title" name="title" type="text" class="form-control" maxlength="100" placeholder="titleを入力">
+            </div>
+
+            <div class="form-group">
+                <label for="url">URL</label>
+                <input id="url" name="url" type="text" class="form-control" placeholder="URLを入力">
+            </div>
+
+            <div class="form-group">
+                <label for="pf">pf</label>
+                <input id="pf" name="pf" type="text" class="form-control" maxlength="100" placeholder="プラットフォームを入力">
+            </div>
+
+            <div class="form-group">
+                <label for="rate">rate</label>
+                <input id="rate" name="rate" type="text" class="form-control" maxlength="100" placeholder="レートを入力">
+            </div>
+
+            <div class="form-group">
+                <label for="memo">コメント</label>
+                <textarea id="memo" name="memo" class="form-control" placeholder="コメントを入力"></textarea>
+            </div>
+    % end
+
 
             <input type="submit" class="btn btn-default" value="登録する"/>
 

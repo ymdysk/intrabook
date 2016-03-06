@@ -129,11 +129,18 @@ def index(db):
     return template('index', books=books, request=request)
 
 @get('/projects')
-def index(db):
+def pindex(db):
     # projectsテーブルから全件取得
     projects = db.query(Project).all()
     # index.tplの描画
     return template('project', projects=projects, request=request)
+
+@get('/rels')
+def rindex(db):
+    # relsテーブルから全件取得
+    rels = db.query(Rel).all()
+    # index.tplの描画
+    return template('rel', rels=rels, request=request)
 
 
 @get('/books/add')
@@ -143,10 +150,17 @@ def new(db):
     return template('edit', form=form, request=request)
 
 @get('/projects/add')
-def new(db):
+def pnew(db):
     form = ProjectForm()
     # padd.tplの描画
     return template('pedit', form=form, request=request)
+
+@get('/rels/add')
+def rnew(db):
+    form = RelForm()
+    # padd.tplの描画
+    return template('redit', form=form, request=request)
+
 
 @post('/books/add')
 def create(db):
@@ -218,7 +232,7 @@ def edit(db, id):
     return template('edit', book=book, form=form, request=request)
 
 @get('/projects/<id:int>/edit')
-def edit(db, id):
+def pedit(db, id):
     # Projectの検索
     project = db.query(Project).get(id)
     # Projectが存在しない(404を表示）
@@ -280,7 +294,7 @@ def returnarray(db):
     return jdata
 
 @get('/parray')
-def returnarray(db):
+def returnparray(db):
     from bottle import response
     projects = db.query(Project).all()
     response.content_type = 'application/json'
@@ -288,6 +302,19 @@ def returnarray(db):
     # ループでJSON作成
     for project in projects:
         jdata += "{" + "\"id\":\"" + str(project.id) + "\",\"title\":\"" + project.title + "\",\"url\":\"" + project.url + "\",\"pf\":\"" + project.pf + "\",\"rate\":\"" + project.rate + "\",\"memo\":\"" + project.memo + "\"},"
+    # 末尾1文字削除,括弧追加
+    jdata = '[' + jdata[:-1] + ']'
+    return jdata
+
+@get('/rarray')
+def returnrarray(db):
+    from bottle import response
+    rels = db.query(Rel).all()
+    response.content_type = 'application/json'
+    jdata=''
+    # ループでJSON作成
+    for rel in rels:
+        jdata += "{" + "\"bid\":\"" + str(rel.bid) + "\",\"pid\":\"" + str(rel.pid) + "\"},"
     # 末尾1文字削除,括弧追加
     jdata = '[' + jdata[:-1] + ']'
     return jdata
@@ -319,7 +346,7 @@ def destroy(db, id):
     redirect("/books")
 
 @post('/projects/<id:int>/delete')
-def destroy(db, id):
+def pdestroy(db, id):
     # Projectの検索
     project = db.query(Project)
     # Projectが存在しない(404を表示）
@@ -331,7 +358,7 @@ def destroy(db, id):
     redirect("/projects")
 
 @post('/rels/<id:int>/delete')
-def destroy(db, id):
+def rdestroy(db, id):
     # Relの検索
     Rel = db.query(Rel)
     # Projectが存在しない(404を表示）
@@ -344,4 +371,4 @@ def destroy(db, id):
 
 
 if __name__ == '__main__':
-    run(host='133.130.89.148', port=80, debug=True, reloader=True)
+    run(host='localhost', port=8000, debug=True, reloader=True)
