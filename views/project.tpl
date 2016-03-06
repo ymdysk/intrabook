@@ -8,6 +8,7 @@
             <thead>
             <tr>
                 <th>id</th>
+                <th>title</th>
                 <th>URL</th>
                 <th>プラットフォーム</th>
                 <th>レート</th>
@@ -20,6 +21,7 @@
             % for project in projects:
             <tr>
                 <td>{{project.id}}</td>
+                <td>{{project.title}}</td>
                 <td><a href="/projects/{{project.id}}/edit">{{project.url}}</a></td>
                 <td>{{project.pf}}</td>
                 <td>{{project.rate}}</td>
