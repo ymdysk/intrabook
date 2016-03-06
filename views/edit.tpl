@@ -18,7 +18,7 @@
 
         <div class="form-group">
             {{ !form.url.label }}
-            {{ !form.url(class_="form-control", placeholder=u"URL", maxlength="100") }}
+            {{ !form.url(class_="form-control", placeholder=u"URL") }}
 
            % if form.url.errors:
                 <div class="errors">
