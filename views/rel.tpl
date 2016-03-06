@@ -18,11 +18,8 @@
             % for rel in rels:
             <tr>
                 <td>{{rel.id}}</td>
-                <td>{{rel.title}}</td>
-                <td><a href="/rels/{{rel.id}}/edit">{{rel.url}}</a></td>
-                <td>{{rel.pf}}</td>
-                <td>{{rel.rate}}</td>
-                <td>{{rel.memo}}</td>
+                <td>{{rel.bid}}</td>
+                <td>{{rel.pid}}</td>
                 <td>
                     <form action="/rels/{{rel.id}}/delete" method="post">
                         <p><input value="削除する" type="submit"/></p>
