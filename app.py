@@ -367,19 +367,6 @@ def returnrarray(db):
     jdata = '[' + jdata[:-1] + ']'
     return jdata
 
-@get('/rarray')
-def returnrarray(db):
-    from bottle import response
-    rels = db.query(Rel).all()
-    response.content_type = 'application/json'
-    jdata=''
-    # ループでJSON作成
-    for rel in rels:
-        jdata += "{" + "\"bid\":\"" + str(rel.bid) + "\",\"pid\":\"" + str(rel.pid) + "\"},"
-    # 末尾1文字削除,括弧追加
-    jdata = '[' + jdata[:-1] + ']'
-    return jdata
-
 
 @post('/books/<id:int>/delete')
 def destroy(db, id):
