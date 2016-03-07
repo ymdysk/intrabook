@@ -360,7 +360,7 @@ def pdestroy(db, id):
 @post('/rels/<id:int>/delete')
 def rdestroy(db, id):
     # Relの検索
-    Rel = db.query(Rel)
+    rel = db.query(Rel)
     # Projectが存在しない(404を表示）
     if not rel:
         return HTTPError(404, 'Rel is not found.')
