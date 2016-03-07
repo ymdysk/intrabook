@@ -47,7 +47,7 @@ class Book(Base):
     created_at = Column(DateTime, default=datetime.now)
 
     def __repr__(self):
-        return "<Book('%s','%s', '%s', '%s')>" % (self.url, self.pf, self.rate, self.memo, self.created_at)
+        return "<Book('%s','%s','%s','%s','%s')>" % (self.url, self.pf, self.rate, self.memo, self.created_at)
 
 class Project(Base):
     # projectsテーブル
@@ -63,7 +63,7 @@ class Project(Base):
     created_at = Column(DateTime, default=datetime.now)
 
     def __repr__(self):
-        return "<Project('%s','%s','%s','%s','%s')>" % (self.title, self.url, self.pf, self.rate, self.memo, self.created_at)
+        return "<Project('%s','%s','%s','%s','%s','%s')>" % (self.title, self.url, self.pf, self.rate, self.memo, self.created_at)
 
 class Rel(Base):
     # Relテーブル
@@ -76,7 +76,7 @@ class Rel(Base):
     created_at = Column(DateTime, default=datetime.now)
 
     def __repr__(self):
-        return "<Rel('%s','%s', '%s', '%s')>" % (self.bid, self.pid, self.created_at)
+        return "<Rel('%s','%s','%s')>" % (self.bid, self.pid, self.created_at)
 
 
 
