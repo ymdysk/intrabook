@@ -396,10 +396,10 @@ def pdestroy(db, id):
 def rdestroy(db, id):
     # Relの検索
     rel = db.query(Rel).get(id)
-    # Projectが存在しない(404を表示）
+    # Relが存在しない(404を表示）
     if not rel:
         return HTTPError(404, 'Rel is not found.')
-    # projectを削除
+    # relを削除
     db.delete(rel)
     # 一覧画面へリダイレクト
     redirect("/rels")
