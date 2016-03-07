@@ -371,4 +371,4 @@ def rdestroy(db, id):
 
 
 if __name__ == '__main__':
-    run(host='133.130.89.148', port=80, debug=True, reloader=True)
+    run(host='localhost', port=8000, debug=True, reloader=True)
