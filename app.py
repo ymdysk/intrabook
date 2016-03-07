@@ -371,7 +371,7 @@ def returnrarray(db):
 @post('/books/<id:int>/delete')
 def destroy(db, id):
     # Bookの検索
-    book = db.query(Book)
+    book = db.query(Book).get(id)
     # Bookが存在しない(404を表示）
     if not book:
         return HTTPError(404, 'Book is not found.')
@@ -383,7 +383,7 @@ def destroy(db, id):
 @post('/projects/<id:int>/delete')
 def pdestroy(db, id):
     # Projectの検索
-    project = db.query(Project)
+    project = db.query(Project).get(id)
     # Projectが存在しない(404を表示）
     if not project:
         return HTTPError(404, 'Project is not found.')
@@ -395,7 +395,7 @@ def pdestroy(db, id):
 @post('/rels/<id:int>/delete')
 def rdestroy(db, id):
     # Relの検索
-    rel = db.query(Rel)
+    rel = db.query(Rel).get(id)
     # Projectが存在しない(404を表示）
     if not rel:
         return HTTPError(404, 'Rel is not found.')
