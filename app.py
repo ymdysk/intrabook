@@ -243,7 +243,7 @@ def pedit(db, id):
     # pedit.tplを描画
     return template('pedit', project=project, form=form, request=request)
 
-@get('/projects/<id:int>/edit')
+@get('/rels/<id:int>/edit')
 def redit(db, id):
     # Relの検索
     rel = db.query(Rel).get(id)
