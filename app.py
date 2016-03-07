@@ -279,6 +279,54 @@ def update(db, id):
     else:
         return template('edit', form=form, request=request)
 
+@post('/projects/<id:int>/edit')
+def pupdate(db, id):
+    # Projectの検索
+    project = db.query(Project).get(id)
+
+    # Projectが存在しない(404を表示）
+    if not project:
+        return HTTPError(404, 'Project is not found.')
+
+    form = ProjectForm(request.forms.decode())
+
+    if form.validate():
+        # project情報を更新
+        project.title = form.title.data
+        project.url = form.url.data
+        project.pf = form.pf.data
+        project.rate = form.rate.data
+        project.memo = form.memo.data
+
+        # 一覧画面へリダイレクト
+        redirect("/projects")
+    else:
+        return template('pedit', form=form, request=request)
+
+@post('/rels/<id:int>/edit')
+def pupdate(db, id):
+    # Relの検索
+    rel = db.query(Rel).get(id)
+
+    # Relが存在しない(404を表示）
+    if not rel:
+        return HTTPError(404, 'Rel is not found.')
+
+    form = RelForm(request.forms.decode())
+
+    if form.validate():
+        # rel情報を更新
+        rel.title = form.title.data
+        rel.url = form.url.data
+        rel.pf = form.pf.data
+        rel.rate = form.rate.data
+        rel.memo = form.memo.data
+
+        # 一覧画面へリダイレクト
+        redirect("/rels")
+    else:
+        return template('redit', form=form, request=request)
+
 
 @get('/array')
 def returnarray(db):
