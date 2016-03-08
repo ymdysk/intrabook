@@ -16,7 +16,6 @@
             <form action="/projects/{{project.id}}/edit" method="post">
         % end
 
-        % if request.path == "/projects/add":
         <div class="form-group">
             {{ !form.title.label }}
             {{ !form.title(class_="form-control", placeholder=u"Title", maxlength="100") }}
@@ -30,7 +29,6 @@
             % end
 
         </div>
-        % end
 
         <div class="form-group">
             {{ !form.url.label }}
