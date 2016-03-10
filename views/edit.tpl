@@ -3,9 +3,9 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
     % if request.path == "/books/add":
-        <h1 class="page-header">登録</h1>
+        <h1 class="page-header">ブックマーク登録</h1>
     % else:
-        <h1 class="page-header">編集</h1>
+        <h1 class="page-header">ブックマーク編集</h1>
     % end
 
     <div class="col-md-5">
